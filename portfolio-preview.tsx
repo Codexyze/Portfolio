@@ -70,6 +70,33 @@ export default function PortfolioPreview() {
     },
   ]
 
+  const moreProjects = [
+    {
+      icon: "📚",
+      title: "Quiz App",
+      description:
+        "A modern Quiz App built using Ktor, Hilt, and Clean Architecture to provide a seamless and efficient user experience with real-time questions fetched dynamically using QuizAPI.",
+      tech: ["Kotlin", "Ktor", "Hilt", "Jetpack Compose", "MVVM", "QuizAPI"],
+      link: "https://github.com/Codexyze/Quiz_App",
+    },
+    {
+      icon: "🎵",
+      title: "Audio Cutter App",
+      description:
+        "An Android app to trim audio files using Jetpack Compose and ExoPlayer. Clean Architecture + MVVM + Hilt make the structure super scalable and modular.",
+      tech: ["Jetpack Compose", "Kotlin", "ExoPlayer", "Hilt", "MVVM", "Clean Architecture"],
+      link: "https://github.com/Codexyze/Audio_Cutter",
+    },
+    {
+      icon: "🎤",
+      title: "Interview Simulator",
+      description:
+        "A comprehensive interview preparation app with realistic simulation features, built with modern Android architecture and Firebase integration.",
+      tech: ["Kotlin", "Ktor", "Firebase", "Hilt", "MVVM", "Clean Architecture", "Auth"],
+      link: "https://github.com/Codexyze/Interview-Simulator",
+    },
+  ]
+
   const blogs = [
     {
       icon: "📱",
@@ -170,7 +197,7 @@ export default function PortfolioPreview() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
-              {["Home", "Projects", "Blogs", "Achievements", "Skills", "Contact"].map((item) => (
+              {["Home", "Projects", "Blogs", "Achievements", "Skills", "Resume", "Contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
@@ -202,7 +229,7 @@ export default function PortfolioPreview() {
             className={`md:hidden ${isDark ? "bg-slate-900" : "bg-white"} border-t ${isDark ? "border-slate-700" : "border-slate-200"}`}
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {["Home", "Projects", "Blogs", "Achievements", "Skills", "Contact"].map((item) => (
+              {["Home", "Projects", "Blogs", "Achievements", "Skills", "Resume", "Contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
@@ -323,6 +350,48 @@ export default function PortfolioPreview() {
                     </span>
                   ))}
                 </div>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  className={`inline-flex items-center gap-2 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium transform hover:scale-105 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+                  rel="noreferrer"
+                >
+                  <Github className="w-4 h-4" />
+                  View Project
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* More Projects Section */}
+      <section className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">More Projects</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {moreProjects.map((project, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border ${isDark ? "border-slate-700" : "border-slate-200"}`}
+              >
+                <div className="text-3xl mb-4">{project.icon}</div>
+                <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
+                <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4 text-sm leading-relaxed`}>
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tech.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className={`px-2 py-1 text-xs rounded-full ${isDark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-700"}`}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
                 <a
                   href={project.link}
                   target="_blank"
@@ -472,6 +541,43 @@ export default function PortfolioPreview() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Resume Section */}
+      <section className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-8">Resume</h2>
+          <p className={`text-lg ${isDark ? "text-slate-400" : "text-slate-600"} mb-8`}>
+            Download my complete resume to learn more about my experience, skills, and achievements.
+          </p>
+          <div className="max-w-md mx-auto">
+            <div
+              className={`p-8 rounded-2xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-xl border ${isDark ? "border-slate-700" : "border-slate-200"}`}
+            >
+              <div className="text-6xl mb-6">📄</div>
+              <h3 className="text-xl font-semibold mb-4">Professional Resume</h3>
+              <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-6`}>
+                Complete overview of my technical skills, projects, and professional experience
+              </p>
+              <a
+                href="https://drive.google.com/file/d/1TK2ERV4qWfpYoJgEnJqLxO7ZZBtHhvYk/view?usp=drive_link"
+                target="_blank"
+                rel="noreferrer"
+                className={`inline-flex items-center gap-3 text-white px-6 py-3 rounded-full text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                Download Resume
+              </a>
+            </div>
           </div>
         </div>
       </section>
