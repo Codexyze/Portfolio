@@ -97,6 +97,41 @@ export default function PortfolioPreview() {
     },
   ]
 
+  const deployedProjects = [
+    {
+      icon: "😂",
+      title: "Meme App",
+      description: "A fun meme browsing app with API integration, efficient image loading, and sharing capabilities.",
+      features: [
+        "🔗 API Integration: Fetches 50 memes using Ktor from the Meme API",
+        "⚡ Efficient Image Loading: Powered by Coil",
+        "📤 Meme Sharing: Share memes through native Android share sheet",
+        "🔁 Reload Button: Tap to refresh the entire list of memes",
+        "🧠 MVVM Architecture: All business logic managed in ViewModel",
+        "🧱 Multi-Module Codebase: Clean separation of concerns for scalability",
+        "🖥️ Responsive Layout: Optimized for phones, tablets, foldables & split-screen",
+      ],
+      tech: ["Kotlin", "Ktor", "MVVM", "Coil"],
+      playStoreLink: "https://play.google.com/store/apps/details?id=com.nutino.memeapp&pcampaignid=web_share",
+      githubLink: "https://github.com/Codexyze/MemeApp",
+    },
+    {
+      icon: "🎵",
+      title: "Audio Cutter",
+      description: "A professional audio trimming app with precise time controls and clean architecture.",
+      features: [
+        "🎧 Play any audio file",
+        "✂️ Trim audio between start and end time (HH:MM:SS)",
+        "💾 Save trimmed audio with custom filename",
+        "✅ Real-time UI state (Loading, Success, Error)",
+        "🧪 Built using clean architecture & modern Android stack",
+      ],
+      tech: ["Jetpack Compose", "ExoPlayer", "Clean Architecture", "Hilt"],
+      playStoreLink: "https://play.google.com/store/apps/details?id=com.nutrino.audiocutter&pcampaignid=web_share",
+      githubLink: "https://github.com/Codexyze/Audio_Cutter",
+    },
+  ]
+
   const blogs = [
     {
       icon: "📱",
@@ -143,6 +178,19 @@ export default function PortfolioPreview() {
       description: "TCS Git 24-Hour Hackathon",
       link: "https://drive.google.com/file/d/1_CzKPG09lww6cpg27DS_YqXYmy-9Vt0q/view?usp=drivesdk",
     },
+    {
+      medal: "🏆",
+      title: "IEEE Fellowship",
+      description: "Intelligent Transportation Systems (ITS) WIE/YP Research Forum - Represented in Paris",
+      link: "https://github.com/Codexyze/Intelligent-transportation-system-Website",
+    },
+    {
+      medal: "📄",
+      title: "Research Publication",
+      description:
+        "Under review in cybersecurity journal with 99.8% AUC performance - Co Author: Multi-Modal Deepfake Detection",
+      link: "",
+    },
   ]
 
   const skills = {
@@ -170,6 +218,7 @@ export default function PortfolioPreview() {
       { name: "Git", link: "https://git-scm.com/" },
       { name: "GitHub", link: "https://github.com/" },
       { name: "REST APIs", link: "https://restfulapi.net/" },
+      { name: "CI/CD", link: "https://www.redhat.com/en/topics/devops/what-is-ci-cd" },
     ],
     Testing: [
       { name: "JUnit", link: "https://junit.org/junit5/" },
@@ -197,15 +246,17 @@ export default function PortfolioPreview() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
-              {["Home", "Projects", "Blogs", "Achievements", "Skills", "Resume", "Contact"].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`transition-colors duration-200 ${isDark ? "text-slate-300 hover:text-emerald-400" : "text-slate-700 hover:text-blue-600"}`}
-                >
-                  {item}
-                </button>
-              ))}
+              {["Home", "Projects", "Deployed Projects", "Blogs", "Achievements", "Skills", "Resume", "Contact"].map(
+                (item) => (
+                  <button
+                    key={item}
+                    onClick={() => scrollToSection(item.toLowerCase().replace(" ", "-"))}
+                    className={`transition-colors duration-200 ${isDark ? "text-slate-300 hover:text-emerald-400" : "text-slate-700 hover:text-blue-600"}`}
+                  >
+                    {item}
+                  </button>
+                ),
+              )}
             </div>
 
             <div className="flex items-center space-x-4">
@@ -229,15 +280,17 @@ export default function PortfolioPreview() {
             className={`md:hidden ${isDark ? "bg-slate-900" : "bg-white"} border-t ${isDark ? "border-slate-700" : "border-slate-200"}`}
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {["Home", "Projects", "Blogs", "Achievements", "Skills", "Resume", "Contact"].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`block px-3 py-2 text-base font-medium ${isDark ? "text-slate-300 hover:text-emerald-400" : "text-slate-700 hover:text-emerald-600"} transition-colors duration-200`}
-                >
-                  {item}
-                </button>
-              ))}
+              {["Home", "Projects", "Deployed Projects", "Blogs", "Achievements", "Skills", "Resume", "Contact"].map(
+                (item) => (
+                  <button
+                    key={item}
+                    onClick={() => scrollToSection(item.toLowerCase().replace(" ", "-"))}
+                    className={`block px-3 py-2 text-base font-medium ${isDark ? "text-slate-300 hover:text-emerald-400" : "text-slate-700 hover:text-emerald-600"} transition-colors duration-200`}
+                  >
+                    {item}
+                  </button>
+                ),
+              )}
             </div>
           </div>
         )}
@@ -407,6 +460,70 @@ export default function PortfolioPreview() {
         </div>
       </section>
 
+      {/* Deployed Projects Section */}
+      <section id="deployed-projects" className="py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Deployed Projects</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {deployedProjects.map((project, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-xl ${isDark ? "bg-slate-800" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border ${isDark ? "border-slate-700" : "border-slate-200"}`}
+              >
+                <div className="text-3xl mb-4">{project.icon}</div>
+                <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
+                <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4 text-sm leading-relaxed`}>
+                  {project.description}
+                </p>
+
+                <div className="mb-4">
+                  <h4 className="font-semibold mb-2 text-sm">Features:</h4>
+                  <ul className={`text-xs ${isDark ? "text-slate-400" : "text-slate-600"} space-y-1`}>
+                    {project.features.map((feature, featureIndex) => (
+                      <li key={featureIndex}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.tech.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className={`px-2 py-1 text-xs rounded-full ${isDark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-700"}`}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex gap-2">
+                  <a
+                    href={project.playStoreLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`inline-flex items-center gap-2 text-white px-3 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                    </svg>
+                    Play Store
+                  </a>
+                  <a
+                    href={project.githubLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 border-2 ${isDark ? "border-slate-600 text-slate-300 hover:border-emerald-500 hover:text-emerald-400" : "border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600"}`}
+                  >
+                    <Github className="w-4 h-4" />
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Published Apps - Play Store */}
       <section className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -492,7 +609,7 @@ export default function PortfolioPreview() {
       <section id="achievements" className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Achievements & Recognition</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {achievements.map((achievement, index) => (
               <div
                 key={index}
@@ -501,14 +618,16 @@ export default function PortfolioPreview() {
                 <div className="text-5xl mb-4">{achievement.medal}</div>
                 <h3 className="text-xl font-semibold mb-2">{achievement.title}</h3>
                 <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4`}>{achievement.description}</p>
-                <a
-                  href={achievement.link}
-                  target="_blank"
-                  className={`font-medium text-sm ${isDark ? "text-purple-400 hover:text-rose-400" : "text-blue-600 hover:text-indigo-600"}`}
-                  rel="noreferrer"
-                >
-                  View Certificate
-                </a>
+                {achievement.title !== "Research Publication" && (
+                  <a
+                    href={achievement.link}
+                    target="_blank"
+                    className={`font-medium text-sm ${isDark ? "text-purple-400 hover:text-rose-400" : "text-blue-600 hover:text-indigo-600"}`}
+                    rel="noreferrer"
+                  >
+                    {achievement.title === "IEEE Fellowship" ? "View Code" : "View Certificate"}
+                  </a>
+                )}
               </div>
             ))}
           </div>
