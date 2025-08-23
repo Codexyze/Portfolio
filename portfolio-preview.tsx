@@ -329,7 +329,7 @@ export default function PortfolioPreview() {
       <section className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">What I'm Working On</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div
               className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-shadow duration-300`}
             >
@@ -372,6 +372,22 @@ export default function PortfolioPreview() {
                 rel="noreferrer"
               >
                 View Repository
+              </a>
+            </div>
+            <div
+              className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-shadow duration-300`}
+            >
+              <div className="text-4xl mb-4">🤝</div>
+              <h3 className="text-xl font-semibold mb-2">Freelancing Collaboration</h3>
+              <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4`}>
+                Available for freelance Android development projects and technical collaborations
+              </p>
+              <a
+                href="mailto:nutrinonovarage@gmail.com"
+                className={`inline-flex items-center gap-2 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium transform hover:scale-105 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+              >
+                <Mail className="w-4 h-4" />
+                Contact
               </a>
             </div>
           </div>
@@ -426,7 +442,7 @@ export default function PortfolioPreview() {
             {moreProjects.map((project, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border ${isDark ? "border-slate-700" : "border-slate-200"}`}
+                className={`p-6 rounded-xl ${isDark ? "bg-slate-800" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border ${isDark ? "border-slate-700" : "border-slate-200"}`}
               >
                 <div className="text-3xl mb-4">{project.icon}</div>
                 <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
