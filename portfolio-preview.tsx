@@ -311,7 +311,7 @@ export default function PortfolioPreview() {
             </span>
           </h1>
           <p className={`text-xl md:text-2xl mb-4 font-semibold ${isDark ? "text-emerald-400" : "text-blue-600"}`}>
-            ⚡ Passionate Android Developer | Jetpack Compose Wizard | Architecture Freak
+            ⚡ Android Developer | Clean Architect | Kotlin & Jetpack Compose Enthusiast | Open for Freelancing Projects
           </p>
           <p className="text-lg md:text-xl mb-8 text-slate-600 dark:text-slate-400">
             I build modern Android apps with clean architecture and seamless UX.
