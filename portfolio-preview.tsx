@@ -562,7 +562,7 @@ export default function PortfolioPreview() {
                 Complete overview of my technical skills, projects, and professional experience
               </p>
               <a
-                href="https://drive.google.com/file/d/1TK2ERV4qWfpYoJgEnJqLxO7ZZBtHhvYk/view?usp=drive_link"
+                href="https://drive.google.com/file/d/12J-hdkjOv9QgcUla4i0jg-43JtrreGv9/view?usp=sharing"
                 target="_blank"
                 rel="noreferrer"
                 className={`inline-flex items-center gap-3 text-white px-6 py-3 rounded-full text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
