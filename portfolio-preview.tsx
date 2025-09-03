@@ -95,6 +95,14 @@ export default function PortfolioPreview() {
       tech: ["Kotlin", "Ktor", "Firebase", "Hilt", "MVVM", "Clean Architecture", "Auth"],
       link: "https://github.com/Codexyze/Interview-Simulator",
     },
+    {
+      icon: "🖼️",
+      title: "On-Device-Image-Classification",
+      description:
+        "On-Device Image Classification is a simple Android app built with Kotlin and Jetpack Compose, powered by TensorFlow Lite. It uses an on-device machine learning model to classify images into categories such as Cat, Horse, Truck, and Car.",
+      tech: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "Android", "On-Device ML"],
+      link: "https://github.com/Codexyze/OnDevice_Image-Classification",
+    },
   ]
 
   const deployedProjects = [
@@ -156,6 +164,12 @@ export default function PortfolioPreview() {
       title: "MVVM Architecture in Android For Dummies",
       description: "A beginner-friendly explanation of MVVM architecture pattern in Android development.",
       link: "https://medium.com/@akshaysarapure/mvvm-architecture-in-android-for-dummies-926a882e9088",
+    },
+    {
+      icon: "🌿",
+      title: "Git Cheat Sheet",
+      description: "A beginner-friendly explanation of integrating git in your workflow",
+      link: "https://medium.com/@akshaysarapure/git-cheat-sheet-3e00168a320b",
     },
   ]
 
