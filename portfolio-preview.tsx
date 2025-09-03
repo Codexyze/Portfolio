@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Menu, X, Sun, Moon, ExternalLink, Github, Mail, Linkedin, Instagram } from "lucide-react"
 
 export default function PortfolioPreview() {
-  const [isDark, setIsDark] = useState(false)
+  const [isDark, setIsDark] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleTheme = () => {
