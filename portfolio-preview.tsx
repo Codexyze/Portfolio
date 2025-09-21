@@ -1,15 +1,11 @@
 "use client"
 
-import { useState } from "react"
-import { Menu, X, Sun, Moon, ExternalLink, Github, Mail, Linkedin, Instagram } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Menu, X, ExternalLink, Github, Mail, Linkedin, Instagram } from "lucide-react"
+import { BackgroundPaths } from "@/components/ui/background-paths"
 
 export default function PortfolioPreview() {
-  const [isDark, setIsDark] = useState(true)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const toggleTheme = () => {
-    setIsDark(!isDark)
-  }
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -18,6 +14,36 @@ export default function PortfolioPreview() {
     }
     setIsMenuOpen(false)
   }
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.2, // Increased from 0.1 for better trigger timing
+      rootMargin: "0px 0px -100px 0px", // Increased from -50px for earlier trigger
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-fade-in-up")
+          entry.target.style.opacity = "1"
+          entry.target.style.transform = "translateY(0)"
+        }
+      })
+    }, observerOptions)
+
+    // Observe all cards for animation with better initial state
+    const cards = document.querySelectorAll(".animate-on-scroll")
+    cards.forEach((card) => {
+      // Set initial state more dramatically
+      card.style.opacity = "0"
+      card.style.transform = "translateY(50px)" // Increased from 30px
+      card.style.transition =
+        "opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)" // Better easing
+      observer.observe(card)
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   const projects = [
     {
@@ -56,7 +82,7 @@ export default function PortfolioPreview() {
       icon: "🎬",
       title: "Video Player App",
       description:
-        "Custom video player using ExoPlayer, built for local video playback with sleek UI and smooth performance.",
+        "Custom video player using ExoPlayer, built for local video playbook with sleek UI and smooth performance.",
       tech: ["Kotlin", "ExoPlayer", "Android"],
       link: "https://github.com/Codexyze/Video_Player_App",
     },
@@ -243,18 +269,12 @@ export default function PortfolioPreview() {
   }
 
   return (
-    <div
-      className={`min-h-screen transition-colors duration-300 ${isDark ? "dark bg-slate-900 text-slate-100" : "bg-white text-slate-900"}`}
-    >
+    <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
-      <nav
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${isDark ? "bg-slate-900/95" : "bg-white/95"} backdrop-blur-md border-b ${isDark ? "border-slate-700" : "border-slate-200"}`}
-      >
+      <nav className="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-md border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div
-              className={`font-bold text-xl bg-gradient-to-r ${isDark ? "from-emerald-500 to-teal-600" : "from-blue-600 to-indigo-600"} bg-clip-text text-transparent`}
-            >
+            <div className="font-bold text-xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               Akshay Sarapure
             </div>
 
@@ -265,7 +285,7 @@ export default function PortfolioPreview() {
                   <button
                     key={item}
                     onClick={() => scrollToSection(item.toLowerCase().replace(" ", "-"))}
-                    className={`transition-colors duration-200 ${isDark ? "text-slate-300 hover:text-emerald-400" : "text-slate-700 hover:text-blue-600"}`}
+                    className="text-gray-300 hover:text-white transition-colors duration-200"
                   >
                     {item}
                   </button>
@@ -274,13 +294,6 @@ export default function PortfolioPreview() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button
-                onClick={toggleTheme}
-                className={`p-2 rounded-full transition-colors duration-200 ${isDark ? "bg-slate-800 hover:bg-slate-700" : "bg-slate-100 hover:bg-slate-200"}`}
-              >
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-2">
                 {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -290,16 +303,14 @@ export default function PortfolioPreview() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div
-            className={`md:hidden ${isDark ? "bg-slate-900" : "bg-white"} border-t ${isDark ? "border-slate-700" : "border-slate-200"}`}
-          >
+          <div className="md:hidden bg-black border-t border-gray-800">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {["Home", "Projects", "Deployed Projects", "Blogs", "Achievements", "Skills", "Resume", "Contact"].map(
                 (item) => (
                   <button
                     key={item}
                     onClick={() => scrollToSection(item.toLowerCase().replace(" ", "-"))}
-                    className={`block px-3 py-2 text-base font-medium ${isDark ? "text-slate-300 hover:text-emerald-400" : "text-slate-700 hover:text-emerald-600"} transition-colors duration-200`}
+                    className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white transition-colors duration-200"
                   >
                     {item}
                   </button>
@@ -310,95 +321,88 @@ export default function PortfolioPreview() {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section id="home" className="pt-16 min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${isDark ? "from-emerald-500/10 via-teal-500/10 to-cyan-500/10" : "from-blue-500/5 via-indigo-500/5 to-purple-500/5"}`}
-        ></div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Hi 👋, I'm{" "}
-            <span
-              className={`bg-gradient-to-r ${isDark ? "from-emerald-500 to-teal-600" : "from-blue-600 to-indigo-600"} bg-clip-text text-transparent`}
+      {/* Hero Section with BackgroundPaths */}
+      <section id="home" className="relative">
+        <div className="absolute inset-0 pt-16">
+          <BackgroundPaths />
+        </div>
+        <div className="relative z-20 pt-16 min-h-screen flex items-center justify-center">
+          <div className="text-center px-4 max-w-4xl mx-auto">
+            <div className="mb-8">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Hi 👋, I'm{" "}
+                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  Akshay Sarapure
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-4 font-semibold text-gray-300">
+                ⚡ Android Developer | Clean Architect | Kotlin & Jetpack Compose Enthusiast | Open for Freelancing
+                Projects
+              </p>
+              <p className="text-lg md:text-xl mb-8 text-gray-400">
+                I build modern Android apps with clean architecture and seamless UX.
+              </p>
+            </div>
+            <button
+              className="text-black px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-r from-white to-gray-200 hover:shadow-white/25 hover:from-gray-100 hover:to-white"
+              onClick={() => scrollToSection("projects")}
             >
-              Akshay Sarapure
-            </span>
-          </h1>
-          <p className={`text-xl md:text-2xl mb-4 font-semibold ${isDark ? "text-emerald-400" : "text-blue-600"}`}>
-            ⚡ Android Developer | Clean Architect | Kotlin & Jetpack Compose Enthusiast | Open for Freelancing Projects
-          </p>
-          <p className="text-lg md:text-xl mb-8 text-slate-600 dark:text-slate-400">
-            I build modern Android apps with clean architecture and seamless UX.
-          </p>
-          <button
-            className={`text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 ${isDark ? "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:shadow-emerald-500/25 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:shadow-blue-500/25 hover:from-blue-700 hover:to-indigo-700"}`}
-            onClick={() => scrollToSection("projects")}
-          >
-            Explore My Work
-          </button>
+              Explore My Work
+            </button>
+          </div>
         </div>
       </section>
 
       {/* Current Work */}
-      <section className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
+      <section className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">What I'm Working On</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div
-              className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-shadow duration-300`}
-            >
+            <div className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-800 opacity-0 translate-y-12">
               <div className="text-4xl mb-4">🎧</div>
               <h3 className="text-xl font-semibold mb-2">Currently Building</h3>
-              <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4`}>
+              <p className="text-gray-400 mb-4">
                 <strong>Lhythm</strong> - Offline music player with embedded lyrics, local playlist support, and audio
                 enhancements
               </p>
               <a
                 href="https://github.com/Codexyze/Lhythm"
                 target="_blank"
-                className={`font-medium ${isDark ? "text-emerald-400 hover:text-emerald-300" : "text-blue-600 hover:text-blue-700"}`}
+                className="font-medium text-gray-300 hover:text-white transition-colors duration-200"
                 rel="noreferrer"
               >
                 View on GitHub
               </a>
             </div>
-            <div
-              className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-shadow duration-300`}
-            >
+            <div className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-800 opacity-0 translate-y-12">
               <div className="text-4xl mb-4">📚</div>
               <h3 className="text-xl font-semibold mb-2">Learning Focus</h3>
-              <p className={`${isDark ? "text-slate-400" : "text-slate-600"}`}>
-                Kotlin Multiplatform (KMP), Clean Architecture, Modular App Design
-              </p>
+              <p className="text-gray-400">Kotlin Multiplatform (KMP), Clean Architecture, Modular App Design</p>
             </div>
-            <div
-              className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-shadow duration-300`}
-            >
+            <div className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-800 opacity-0 translate-y-12">
               <div className="text-4xl mb-4">💻</div>
               <h3 className="text-xl font-semibold mb-2">Practice Hub</h3>
-              <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4`}>
+              <p className="text-gray-400 mb-4">
                 Continuous learning through hands-on coding challenges and experiments
               </p>
               <a
                 href="https://github.com/Codexyze/practice_Set_Code"
                 target="_blank"
-                className={`font-medium ${isDark ? "text-emerald-400 hover:text-emerald-300" : "text-blue-600 hover:text-blue-700"}`}
+                className="font-medium text-gray-300 hover:text-white transition-colors duration-200"
                 rel="noreferrer"
               >
                 View Repository
               </a>
             </div>
-            <div
-              className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-shadow duration-300`}
-            >
+            <div className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-800 opacity-0 translate-y-12">
               <div className="text-4xl mb-4">🤝</div>
               <h3 className="text-xl font-semibold mb-2">Freelancing Collaboration</h3>
-              <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4`}>
+              <p className="text-gray-400 mb-4">
                 Available for freelance Android development projects and technical collaborations
               </p>
               <a
                 href="mailto:nutrinonovarage@gmail.com"
-                className={`inline-flex items-center gap-2 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium transform hover:scale-105 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+                className="inline-flex items-center gap-2 text-black px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium transform hover:scale-105 bg-gradient-to-r from-white to-gray-200 hover:from-gray-100 hover:to-white"
               >
                 <Mail className="w-4 h-4" />
                 Contact
@@ -409,25 +413,23 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20">
+      <section id="projects" className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Featured Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-xl ${isDark ? "bg-slate-800" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border ${isDark ? "border-slate-700" : "border-slate-200"}`}
+                className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800 opacity-0 translate-y-12"
               >
                 <div className="text-3xl mb-4">{project.icon}</div>
                 <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
-                <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4 text-sm leading-relaxed`}>
-                  {project.description}
-                </p>
+                <p className="text-gray-400 mb-4 text-sm leading-relaxed">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className={`px-2 py-1 text-xs rounded-full ${isDark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-700"}`}
+                      className="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300 border border-gray-700"
                     >
                       {tech}
                     </span>
@@ -436,7 +438,7 @@ export default function PortfolioPreview() {
                 <a
                   href={project.link}
                   target="_blank"
-                  className={`inline-flex items-center gap-2 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium transform hover:scale-105 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+                  className="inline-flex items-center gap-2 text-black px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium transform hover:scale-105 bg-gradient-to-r from-white to-gray-200 hover:from-gray-100 hover:to-white"
                   rel="noreferrer"
                 >
                   <Github className="w-4 h-4" />
@@ -449,26 +451,24 @@ export default function PortfolioPreview() {
       </section>
 
       {/* More Projects Section */}
-      <section className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
+      <section className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">More Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {moreProjects.map((project, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-xl ${isDark ? "bg-slate-800" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border ${isDark ? "border-slate-700" : "border-slate-200"}`}
+                className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800 opacity-0 translate-y-12"
               >
                 <div className="text-3xl mb-4">{project.icon}</div>
                 <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
-                <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4 text-sm leading-relaxed`}>
-                  {project.description}
-                </p>
+                <p className="text-gray-400 mb-4 text-sm leading-relaxed">{project.description}</p>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className={`px-2 py-1 text-xs rounded-full ${isDark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-700"}`}
+                      className="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300 border border-gray-700"
                     >
                       {tech}
                     </span>
@@ -478,7 +478,7 @@ export default function PortfolioPreview() {
                 <a
                   href={project.link}
                   target="_blank"
-                  className={`inline-flex items-center gap-2 text-white px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium transform hover:scale-105 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+                  className="inline-flex items-center gap-2 text-black px-4 py-2 rounded-lg transition-all duration-200 text-sm font-medium transform hover:scale-105 bg-gradient-to-r from-white to-gray-200 hover:from-gray-100 hover:to-white"
                   rel="noreferrer"
                 >
                   <Github className="w-4 h-4" />
@@ -491,24 +491,22 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Deployed Projects Section */}
-      <section id="deployed-projects" className="py-20">
+      <section id="deployed-projects" className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Deployed Projects</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {deployedProjects.map((project, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-xl ${isDark ? "bg-slate-800" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border ${isDark ? "border-slate-700" : "border-slate-200"}`}
+                className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800 opacity-0 translate-y-12"
               >
                 <div className="text-3xl mb-4">{project.icon}</div>
                 <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
-                <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4 text-sm leading-relaxed`}>
-                  {project.description}
-                </p>
+                <p className="text-gray-400 mb-4 text-sm leading-relaxed">{project.description}</p>
 
                 <div className="mb-4">
                   <h4 className="font-semibold mb-2 text-sm">Features:</h4>
-                  <ul className={`text-xs ${isDark ? "text-slate-400" : "text-slate-600"} space-y-1`}>
+                  <ul className="text-xs text-gray-400 space-y-1">
                     {project.features.map((feature, featureIndex) => (
                       <li key={featureIndex}>{feature}</li>
                     ))}
@@ -519,7 +517,7 @@ export default function PortfolioPreview() {
                   {project.tech.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className={`px-2 py-1 text-xs rounded-full ${isDark ? "bg-slate-700 text-slate-300" : "bg-slate-100 text-slate-700"}`}
+                      className="px-2 py-1 text-xs rounded-full bg-gray-800 text-gray-300 border border-gray-700"
                     >
                       {tech}
                     </span>
@@ -531,7 +529,7 @@ export default function PortfolioPreview() {
                     href={project.playStoreLink}
                     target="_blank"
                     rel="noreferrer"
-                    className={`inline-flex items-center gap-2 text-white px-3 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+                    className="inline-flex items-center gap-2 text-black px-3 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-white to-gray-200 hover:from-gray-100 hover:to-white"
                   >
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
@@ -542,7 +540,7 @@ export default function PortfolioPreview() {
                     href={project.githubLink}
                     target="_blank"
                     rel="noreferrer"
-                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 border-2 ${isDark ? "border-slate-600 text-slate-300 hover:border-emerald-500 hover:text-emerald-400" : "border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600"}`}
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 border-2 border-gray-700 text-gray-300 hover:border-gray-500 hover:text-white"
                   >
                     <Github className="w-4 h-4" />
                     GitHub
@@ -555,39 +553,29 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Published Apps - Play Store */}
-      <section className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
+      <section className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Published Apps</h2>
           <div className="max-w-4xl mx-auto">
-            <div
-              className={`p-8 rounded-2xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-xl hover:shadow-2xl transition-all duration-300 text-center border ${isDark ? "border-slate-700" : "border-slate-200"}`}
-            >
+            <div className="p-8 rounded-2xl bg-black shadow-xl hover:shadow-2xl transition-all duration-300 text-center border border-gray-800">
               <div className="text-6xl mb-6">📱</div>
               <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                <span
-                  className={`bg-gradient-to-r ${isDark ? "from-emerald-500 to-teal-600" : "from-blue-600 to-indigo-600"} bg-clip-text text-transparent`}
-                >
+                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                   Live on Google Play Store
                 </span>
               </h3>
-              <p className={`text-lg ${isDark ? "text-slate-400" : "text-slate-600"} mb-6 leading-relaxed`}>
+              <p className="text-lg text-gray-400 mb-6 leading-relaxed">
                 Discover my published Android applications available for millions of users worldwide. Each app showcases
                 modern Android development practices, clean architecture, and exceptional user experience.
               </p>
               <div className="flex flex-wrap justify-center gap-4 mb-8">
-                <div
-                  className={`px-4 py-2 rounded-full ${isDark ? "bg-slate-800 text-emerald-400" : "bg-blue-50 text-blue-600"} font-medium`}
-                >
+                <div className="px-4 py-2 rounded-full bg-gray-800 text-gray-300 font-medium border border-gray-700">
                   ✨ Modern UI/UX
                 </div>
-                <div
-                  className={`px-4 py-2 rounded-full ${isDark ? "bg-slate-800 text-emerald-400" : "bg-blue-50 text-blue-600"} font-medium`}
-                >
+                <div className="px-4 py-2 rounded-full bg-gray-800 text-gray-300 font-medium border border-gray-700">
                   🏗️ Clean Architecture
                 </div>
-                <div
-                  className={`px-4 py-2 rounded-full ${isDark ? "bg-slate-800 text-emerald-400" : "bg-blue-50 text-blue-600"} font-medium`}
-                >
+                <div className="px-4 py-2 rounded-full bg-gray-800 text-gray-300 font-medium border border-gray-700">
                   🚀 High Performance
                 </div>
               </div>
@@ -595,7 +583,7 @@ export default function PortfolioPreview() {
                 href="https://play.google.com/store/apps/dev?id=9069883027072615264"
                 target="_blank"
                 rel="noreferrer"
-                className={`inline-flex items-center gap-3 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 ${isDark ? "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:shadow-emerald-500/25 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:shadow-blue-500/25 hover:from-blue-700 hover:to-indigo-700"}`}
+                className="inline-flex items-center gap-3 text-black px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-r from-white to-gray-200 hover:shadow-white/25 hover:from-gray-100 hover:to-white"
               >
                 <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
@@ -608,22 +596,22 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Blog Articles */}
-      <section id="blogs" className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
+      <section id="blogs" className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Latest Blog Articles</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {blogs.map((blog, index) => (
               <article
                 key={index}
-                className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1`}
+                className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-800 opacity-0 translate-y-12"
               >
                 <div className="text-3xl mb-4">{blog.icon}</div>
                 <h3 className="text-lg font-semibold mb-3">{blog.title}</h3>
-                <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4 text-sm`}>{blog.description}</p>
+                <p className="text-gray-400 mb-4 text-sm">{blog.description}</p>
                 <a
                   href={blog.link}
                   target="_blank"
-                  className={`inline-flex items-center gap-2 font-medium text-sm ${isDark ? "text-emerald-400 hover:text-emerald-300" : "text-blue-600 hover:text-indigo-600"}`}
+                  className="inline-flex items-center gap-2 font-medium text-sm text-gray-300 hover:text-white transition-colors duration-200"
                   rel="noreferrer"
                 >
                   <ExternalLink className="w-4 h-4" />
@@ -636,23 +624,23 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Achievements */}
-      <section id="achievements" className="py-20">
+      <section id="achievements" className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Achievements & Recognition</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {achievements.map((achievement, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-xl ${isDark ? "bg-slate-800" : "bg-white"} shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-center border ${isDark ? "border-slate-700" : "border-slate-200"}`}
+                className="animate-on-scroll p-6 rounded-xl bg-black shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-center border border-gray-800 opacity-0 translate-y-12"
               >
                 <div className="text-5xl mb-4">{achievement.medal}</div>
                 <h3 className="text-xl font-semibold mb-2">{achievement.title}</h3>
-                <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-4`}>{achievement.description}</p>
+                <p className="text-gray-400 mb-4">{achievement.description}</p>
                 {achievement.title !== "Research Publication" && (
                   <a
                     href={achievement.link}
                     target="_blank"
-                    className={`font-medium text-sm ${isDark ? "text-purple-400 hover:text-rose-400" : "text-blue-600 hover:text-indigo-600"}`}
+                    className="font-medium text-sm text-gray-300 hover:text-white transition-colors duration-200"
                     rel="noreferrer"
                   >
                     {achievement.title === "IEEE Fellowship" ? "View Code" : "View Certificate"}
@@ -665,15 +653,12 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
+      <section id="skills" className="py-20 bg-black">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Technical Skills</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Object.entries(skills).map(([category, skillList], index) => (
-              <div
-                key={index}
-                className={`p-6 rounded-xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-lg border ${isDark ? "border-slate-700" : "border-slate-200"}`}
-              >
+              <div key={index} className="p-6 rounded-xl bg-black shadow-lg border border-gray-800">
                 <h3 className="text-lg font-semibold mb-4">{category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {skillList.map((skill, skillIndex) => (
@@ -682,7 +667,7 @@ export default function PortfolioPreview() {
                       href={skill.link}
                       target="_blank"
                       rel="noreferrer"
-                      className={`text-white px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 transform hover:scale-105 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+                      className="text-black px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-white to-gray-200 hover:from-gray-100 hover:to-white"
                     >
                       {skill.name}
                     </a>
@@ -695,26 +680,24 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Resume Section */}
-      <section className={`py-20 ${isDark ? "bg-slate-800" : "bg-slate-50"}`}>
+      <section className="py-20 bg-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">Resume</h2>
-          <p className={`text-lg ${isDark ? "text-slate-400" : "text-slate-600"} mb-8`}>
+          <p className="text-lg text-gray-400 mb-8">
             Download my complete resume to learn more about my experience, skills, and achievements.
           </p>
           <div className="max-w-md mx-auto">
-            <div
-              className={`p-8 rounded-2xl ${isDark ? "bg-slate-900" : "bg-white"} shadow-xl border ${isDark ? "border-slate-700" : "border-slate-200"}`}
-            >
+            <div className="p-8 rounded-2xl bg-black shadow-xl border border-gray-800">
               <div className="text-6xl mb-6">📄</div>
               <h3 className="text-xl font-semibold mb-4">Professional Resume</h3>
-              <p className={`${isDark ? "text-slate-400" : "text-slate-600"} mb-6`}>
+              <p className="text-gray-400 mb-6">
                 Complete overview of my technical skills, projects, and professional experience
               </p>
               <a
                 href="https://drive.google.com/file/d/12J-hdkjOv9QgcUla4i0jg-43JtrreGv9/view?usp=sharing"
                 target="_blank"
                 rel="noreferrer"
-                className={`inline-flex items-center gap-3 text-white px-6 py-3 rounded-full text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 ${isDark ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"}`}
+                className="inline-flex items-center gap-3 text-black px-6 py-3 rounded-full text-lg font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-gradient-to-r from-white to-gray-200 hover:from-gray-100 hover:to-white"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -732,16 +715,16 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-20">
+      <section id="contact" className="py-20 bg-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8">Let's Connect</h2>
-          <p className={`text-lg ${isDark ? "text-slate-400" : "text-slate-600"} mb-12`}>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">Let's Connect</h2>
+          <p className="text-lg text-gray-400 mb-12">
             I'm always open to discussing new opportunities, collaborations, or just chatting about Android development!
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             <a
               href="mailto:akshaysarapure@gmail.com"
-              className={`flex items-center justify-center gap-3 p-4 rounded-xl transition-colors duration-200 border-2 border-transparent ${isDark ? "bg-slate-800 hover:bg-slate-700 hover:border-emerald-500" : "bg-slate-100 hover:bg-slate-200 hover:border-blue-500"}`}
+              className="flex items-center justify-center gap-3 p-4 rounded-xl transition-colors duration-200 border-2 border-transparent bg-black hover:bg-gray-800 hover:border-gray-600 border border-gray-800"
             >
               <Mail className="w-5 h-5" />
               <span className="font-medium">Email</span>
@@ -749,7 +732,7 @@ export default function PortfolioPreview() {
             <a
               href="https://www.linkedin.com/in/akshay-sarapure-0a1677213/"
               target="_blank"
-              className={`flex items-center justify-center gap-3 p-4 rounded-xl transition-colors duration-200 border-2 border-transparent ${isDark ? "bg-slate-800 hover:bg-slate-700 hover:border-emerald-500" : "bg-slate-100 hover:bg-slate-200 hover:border-blue-500"}`}
+              className="flex items-center justify-center gap-3 p-4 rounded-xl transition-colors duration-200 border-2 border-transparent bg-black hover:bg-gray-800 hover:border-gray-600 border border-gray-800"
               rel="noreferrer"
             >
               <Linkedin className="w-5 h-5" />
@@ -758,7 +741,7 @@ export default function PortfolioPreview() {
             <a
               href="https://github.com/Codexyze"
               target="_blank"
-              className={`flex items-center justify-center gap-3 p-4 rounded-xl transition-colors duration-200 border-2 border-transparent ${isDark ? "bg-slate-800 hover:bg-slate-700 hover:border-emerald-500" : "bg-slate-100 hover:bg-slate-200 hover:border-blue-500"}`}
+              className="flex items-center justify-center gap-3 p-4 rounded-xl transition-colors duration-200 border-2 border-transparent bg-black hover:bg-gray-800 hover:border-gray-600 border border-gray-800"
               rel="noreferrer"
             >
               <Github className="w-5 h-5" />
@@ -767,7 +750,7 @@ export default function PortfolioPreview() {
             <a
               href="https://instagram.com/ak__shay_s"
               target="_blank"
-              className={`flex items-center justify-center gap-3 p-4 rounded-xl transition-colors duration-200 border-2 border-transparent ${isDark ? "bg-slate-800 hover:bg-slate-700 hover:border-emerald-500" : "bg-slate-100 hover:bg-slate-200 hover:border-blue-500"}`}
+              className="flex items-center justify-center gap-3 p-4 rounded-xl transition-colors duration-200 border-2 border-transparent bg-black hover:bg-gray-800 hover:border-gray-600 border border-gray-800"
               rel="noreferrer"
             >
               <Instagram className="w-5 h-5" />
@@ -778,7 +761,7 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Footer */}
-      <footer className={`py-8 ${isDark ? "bg-slate-900" : "bg-slate-800"} text-white text-center`}></footer>
+      <footer className="py-8 bg-black text-white text-center border-t border-gray-800"></footer>
     </div>
   )
 }
