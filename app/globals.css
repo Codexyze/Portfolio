@@ -2,13 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Color Variables */
+:root {
+  --pitch-black: #0a0a0a;
+  --blue-accent: #2563eb;
+  --card-bg: #111111;
+  --text-primary: #f5f5f5;
+  --text-secondary: #b0b0b0;
+}
+
 body {
   font-family: inherit;
+  background: var(--pitch-black);
+  color: var(--text-primary);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Custom Color Classes */
+  .bg-pitch-black {
+    background-color: var(--pitch-black);
+  }
+
+  .text-blue-accent {
+    color: var(--blue-accent);
+  }
+
+  .border-blue-accent {
+    border-color: var(--blue-accent);
+  }
+
+  /* Scale Transform */
+  .hover\:scale-103:hover {
+    transform: scale(1.03);
   }
 }
 
@@ -39,48 +68,6 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -93,88 +80,206 @@ body {
   }
 }
 
-/* Animation classes - Enhanced for better visibility */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(60px); /* Increased from 30px */
+/* Blue Card Styles */
+.blue-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(37, 99, 235, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.blue-card:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(37, 99, 235, 0.2);
+}
+
+/* Blue Button Styles */
+.blue-button {
+  background: var(--blue-accent);
+  color: white;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.blue-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+
+.blue-button-small {
+  background: var(--blue-accent);
+  color: white;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
+}
+
+.blue-button-small:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.5);
+}
+
+/* Blue Outline Button */
+.blue-outline-button:hover {
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+}
+
+/* Skill Chip Styles */
+.skill-chip {
+  background: var(--card-bg);
+  color: white;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.skill-chip:hover {
+  background: rgba(37, 99, 235, 0.1);
+  border-color: var(--blue-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+/* Scroll Reveal Animation */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.scroll-reveal.animate-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Glassmorphism Navigation */
+nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+  .blue-card {
+    margin-bottom: 1rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .blue-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .skill-chip {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
   }
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-60px);
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--pitch-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--blue-accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.8);
+}
+
+/* Selection Styling */
+::selection {
+  background: rgba(37, 99, 235, 0.3);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: rgba(37, 99, 235, 0.3);
+  color: var(--text-primary);
+}
+
+/* Focus states for accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid var(--blue-accent);
+  outline-offset: 2px;
+}
+
+/* Ensure text is always readable */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+/* Links styling */
+a {
+  color: var(--blue-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--text-primary);
+}
+
+/* Additional animations for smooth interactions */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+  50% {
+    transform: translateY(-10px);
   }
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(60px);
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Enhanced hover effects for better UX */
+.blue-card,
+.blue-button,
+.blue-button-small,
+.skill-chip {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Ensure proper contrast and readability */
+.text-white {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-300 {
+  color: var(--text-secondary) !important;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+  .blue-card:hover {
+    transform: scale(1.02);
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+
+  .blue-button:hover,
+  .blue-button-small:hover {
+    transform: translateY(-1px);
   }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-/* Enhanced smooth transitions for all elements */
-.animate-on-scroll {
-  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Add stagger delay for multiple elements */
-.animate-on-scroll:nth-child(1) {
-  transition-delay: 0ms;
-}
-.animate-on-scroll:nth-child(2) {
-  transition-delay: 100ms;
-}
-.animate-on-scroll:nth-child(3) {
-  transition-delay: 200ms;
-}
-.animate-on-scroll:nth-child(4) {
-  transition-delay: 300ms;
-}
-.animate-on-scroll:nth-child(5) {
-  transition-delay: 400ms;
-}
-.animate-on-scroll:nth-child(6) {
-  transition-delay: 500ms;
 }
