@@ -123,14 +123,6 @@ export default function PortfolioPreview() {
       tech: ["Kotlin", "Jetpack Compose", "TensorFlow Lite", "Android", "On-Device ML"],
       link: "https://github.com/Codexyze/OnDevice_Image-Classification",
     },
-    {
-      icon: "🎵",
-      title: "SoundFX Equalizer",
-      description:
-        "Advanced audio equalizer implementation for Android using ExoPlayer and Android's Equalizer API. Features real-time audio processing with customizable frequency bands and smooth UI interactions.",
-      tech: ["Kotlin", "Jetpack Compose", "ExoPlayer", "Android Audio API", "Hilt", "Material Design 3"],
-      link: "https://github.com/Codexyze/SoundFX-Equalizer",
-    },
   ]
 
   const deployedProjects = [
@@ -276,8 +268,6 @@ export default function PortfolioPreview() {
       <nav className="fixed top-0 w-full z-50 bg-pitch-black/90 backdrop-blur-xl border-b border-blue-accent/20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="font-bold text-xl text-blue-accent">Akshay Sarapure</div>
-
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
               {[
@@ -341,11 +331,21 @@ export default function PortfolioPreview() {
         )}
       </nav>
 
-      {/* Hero Section with BackgroundPaths */}
+      {/* Hero Section with BackgroundPaths and Glowing Animation */}
       <section id="home" className="relative">
         <div className="absolute inset-0 pt-16">
           <BackgroundPaths />
         </div>
+
+        {/* Glowing Background Animation */}
+        <div className="absolute inset-0 pt-16 overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="hero-glow-1"></div>
+            <div className="hero-glow-2"></div>
+            <div className="hero-glow-3"></div>
+          </div>
+        </div>
+
         <div className="relative z-20 pt-16 min-h-screen flex items-center justify-center">
           <div className="text-center px-4 max-w-4xl mx-auto">
             <div className="mb-8">
