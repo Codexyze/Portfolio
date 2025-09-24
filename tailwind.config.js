@@ -6,7 +6,7 @@ module.exports = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./**/*.{ts,tsx}",
+    "./portfolio-preview.tsx",
     "*.{js,ts,jsx,tsx,mdx}",
   ],
   prefix: "",

@@ -6,7 +6,8 @@ import { BackgroundPaths } from "@/components/ui/background-paths"
 
 export default function PortfolioPreview() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [typingComplete, setTypingComplete] = useState(false)
+  const [typingComplete, setTypingComplete] = useState(true) // Default to true for SSR
+  const [hasTyped, setHasTyped] = useState(true) // Default to true for SSR
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -41,28 +42,36 @@ export default function PortfolioPreview() {
   }, [])
 
   useEffect(() => {
-    // Check if typing animation has been shown before
-    const hasTyped = localStorage.getItem("heroTypingComplete")
+    // Only run on client side
+    if (typeof window !== "undefined") {
+      // Check if typing animation has been shown before
+      const hasTypedBefore = localStorage.getItem("heroTypingComplete")
 
-    if (!hasTyped) {
-      // Start typing animation after a short delay
-      const typingTimer = setTimeout(() => {
+      if (!hasTypedBefore) {
+        setHasTyped(false)
         setTypingComplete(false)
-      }, 500)
 
-      // Complete typing animation and remove caret
-      const completeTimer = setTimeout(() => {
+        // Start typing animation after a short delay
+        const typingTimer = setTimeout(() => {
+          setTypingComplete(false)
+        }, 500)
+
+        // Complete typing animation and remove caret
+        const completeTimer = setTimeout(() => {
+          setTypingComplete(true)
+          localStorage.setItem("heroTypingComplete", "true")
+          setHasTyped(true)
+        }, 4000)
+
+        return () => {
+          clearTimeout(typingTimer)
+          clearTimeout(completeTimer)
+        }
+      } else {
+        // If already typed before, show immediately
         setTypingComplete(true)
-        localStorage.setItem("heroTypingComplete", "true")
-      }, 4000)
-
-      return () => {
-        clearTimeout(typingTimer)
-        clearTimeout(completeTimer)
+        setHasTyped(true)
       }
-    } else {
-      // If already typed before, show immediately
-      setTypingComplete(true)
     }
   }, [])
 
@@ -378,7 +387,7 @@ export default function PortfolioPreview() {
             <div className="mb-8">
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
                 <span className="text-white/70">
-                  {localStorage.getItem("heroTypingComplete") ? (
+                  {hasTyped ? (
                     "Hi 👋, I'm "
                   ) : (
                     <span className={`inline-block ${typingComplete ? "typing-complete" : "typing-animation"}`}>
