@@ -34,11 +34,6 @@ body {
   .border-blue-accent {
     border-color: var(--blue-accent);
   }
-
-  /* Scale Transform */
-  .hover\:scale-103:hover {
-    transform: scale(1.03);
-  }
 }
 
 @layer base {
@@ -89,8 +84,9 @@ body {
 }
 
 .blue-card:hover {
-  border-color: rgba(37, 99, 235, 0.4);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(37, 99, 235, 0.2);
+  border-color: rgba(37, 99, 235, 0.6);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 30px rgba(37, 99, 235, 0.4);
+  transform: translateY(-2px);
 }
 
 /* Blue Button Styles */
@@ -104,7 +100,7 @@ body {
 
 .blue-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+  box-shadow: 0 6px 25px rgba(37, 99, 235, 0.6), 0 0 20px rgba(37, 99, 235, 0.4);
 }
 
 .blue-button-small {
@@ -117,12 +113,13 @@ body {
 
 .blue-button-small:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.5);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.6), 0 0 15px rgba(37, 99, 235, 0.4);
 }
 
 /* Blue Outline Button */
 .blue-outline-button:hover {
-  box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.5);
+  border-color: rgba(37, 99, 235, 0.8);
 }
 
 /* Skill Chip Styles */
@@ -137,7 +134,7 @@ body {
   background: rgba(37, 99, 235, 0.1);
   border-color: var(--blue-accent);
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4), 0 0 10px rgba(37, 99, 235, 0.3);
 }
 
 /* Scroll Reveal Animation */
@@ -152,8 +149,13 @@ body {
   transform: translateY(0);
 }
 
-/* Smooth transitions for all interactive elements */
-* {
+/* Smooth transitions for all interactive elements - Fixed */
+button,
+a,
+.blue-card,
+.blue-button,
+.blue-button-small,
+.skill-chip {
   transition: all 0.3s ease-in-out;
 }
 
@@ -161,6 +163,14 @@ body {
 nav {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+}
+
+nav button {
+  transition: color 0.3s ease-in-out;
+}
+
+nav button:hover {
+  transform: none; /* Remove scale transform that was causing blinking */
 }
 
 /* Responsive Design Enhancements */
@@ -255,14 +265,6 @@ a:hover {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Enhanced hover effects for better UX */
-.blue-card,
-.blue-button,
-.blue-button-small,
-.skill-chip {
-  transition: all 0.3s ease-in-out;
-}
-
 /* Ensure proper contrast and readability */
 .text-white {
   color: var(--text-primary) !important;
@@ -272,7 +274,7 @@ a:hover {
   color: var(--text-secondary) !important;
 }
 
-/* Mobile-specific optimizations */
+/* Mobile-specific optimizations - Fixed */
 @media (max-width: 640px) {
   .blue-card:hover {
     transform: scale(1.02);
@@ -281,6 +283,11 @@ a:hover {
   .blue-button:hover,
   .blue-button-small:hover {
     transform: translateY(-1px);
+  }
+
+  /* Remove hover scale on mobile navigation */
+  nav button:hover {
+    transform: none;
   }
 }
 
@@ -360,6 +367,178 @@ a:hover {
   }
 }
 
+/* Section Background Effects - Subtle glowing effects for all sections */
+.section-bg-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.section-bg-effect::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.1;
+  animation: section-glow 12s ease-in-out infinite;
+}
+
+.section-bg-effect::after {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.08;
+  animation: section-glow-2 15s ease-in-out infinite reverse;
+}
+
+/* Different positions for each section */
+.section-bg-1::before {
+  top: 10%;
+  left: 80%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.3), transparent);
+}
+.section-bg-1::after {
+  bottom: 20%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+
+.section-bg-2::before {
+  top: 20%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent);
+}
+.section-bg-2::after {
+  bottom: 10%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+
+.section-bg-3::before {
+  top: 30%;
+  right: 20%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+.section-bg-3::after {
+  bottom: 30%;
+  left: 20%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent);
+}
+
+.section-bg-4::before {
+  top: 15%;
+  left: 70%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.3), transparent);
+}
+.section-bg-4::after {
+  bottom: 25%;
+  left: 5%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+
+.section-bg-5::before {
+  top: 25%;
+  left: 15%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent);
+}
+.section-bg-5::after {
+  bottom: 15%;
+  right: 10%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+
+.section-bg-6::before {
+  top: 35%;
+  right: 25%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+.section-bg-6::after {
+  bottom: 35%;
+  left: 25%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent);
+}
+
+.section-bg-7::before {
+  top: 20%;
+  left: 75%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.3), transparent);
+}
+.section-bg-7::after {
+  bottom: 20%;
+  left: 15%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+
+.section-bg-8::before {
+  top: 30%;
+  left: 20%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.25), transparent);
+}
+.section-bg-8::after {
+  bottom: 30%;
+  right: 20%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+
+.section-bg-9::before {
+  top: 40%;
+  right: 30%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+.section-bg-9::after {
+  bottom: 40%;
+  left: 30%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent);
+}
+
+.section-bg-10::before {
+  top: 25%;
+  left: 80%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.3), transparent);
+}
+.section-bg-10::after {
+  bottom: 25%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.2), transparent);
+}
+
+@keyframes section-glow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.1;
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.1);
+    opacity: 0.15;
+  }
+  66% {
+    transform: translate(-20px, 30px) scale(0.9);
+    opacity: 0.08;
+  }
+}
+
+@keyframes section-glow-2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.08;
+  }
+  50% {
+    transform: translate(-25px, 25px) scale(1.2);
+    opacity: 0.12;
+  }
+}
+
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
   .hero-glow-1 {
@@ -375,5 +554,64 @@ a:hover {
   .hero-glow-3 {
     width: 700px;
     height: 300px;
+  }
+
+  .section-bg-effect::before {
+    width: 200px;
+    height: 200px;
+  }
+
+  .section-bg-effect::after {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Typing Animation for Hero Title */
+.typing-animation {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3s steps(26, end) forwards, blink-caret 0.75s step-end 4;
+  border-right: 3px solid var(--blue-accent);
+  width: 0;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--blue-accent);
+  }
+}
+
+/* Remove caret after animation completes */
+.typing-complete {
+  border-right: none;
+}
+
+/* Responsive typing animation */
+@media (max-width: 768px) {
+  .typing-animation {
+    animation: typing-mobile 3s steps(26, end) forwards, blink-caret 0.75s step-end 4;
+  }
+
+  @keyframes typing-mobile {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
   }
 }

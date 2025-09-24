@@ -6,6 +6,7 @@ import { BackgroundPaths } from "@/components/ui/background-paths"
 
 export default function PortfolioPreview() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [typingComplete, setTypingComplete] = useState(false)
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -37,6 +38,32 @@ export default function PortfolioPreview() {
     })
 
     return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    // Check if typing animation has been shown before
+    const hasTyped = localStorage.getItem("heroTypingComplete")
+
+    if (!hasTyped) {
+      // Start typing animation after a short delay
+      const typingTimer = setTimeout(() => {
+        setTypingComplete(false)
+      }, 500)
+
+      // Complete typing animation and remove caret
+      const completeTimer = setTimeout(() => {
+        setTypingComplete(true)
+        localStorage.setItem("heroTypingComplete", "true")
+      }, 4000)
+
+      return () => {
+        clearTimeout(typingTimer)
+        clearTimeout(completeTimer)
+      }
+    } else {
+      // If already typed before, show immediately
+      setTypingComplete(true)
+    }
   }, [])
 
   const projects = [
@@ -284,7 +311,7 @@ export default function PortfolioPreview() {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase().replace(" ", "-"))}
-                  className="text-gray-300 hover:text-blue-accent transition-all duration-300 hover:scale-105 relative group"
+                  className="text-gray-300 hover:text-blue-accent transition-colors duration-300 relative group"
                 >
                   {item}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-accent transition-all duration-300 group-hover:w-full"></span>
@@ -350,7 +377,15 @@ export default function PortfolioPreview() {
           <div className="text-center px-4 max-w-4xl mx-auto">
             <div className="mb-8">
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                <span className="text-white/70">Hi 👋, I'm </span>
+                <span className="text-white/70">
+                  {localStorage.getItem("heroTypingComplete") ? (
+                    "Hi 👋, I'm "
+                  ) : (
+                    <span className={`inline-block ${typingComplete ? "typing-complete" : "typing-animation"}`}>
+                      Hi 👋, I'm
+                    </span>
+                  )}
+                </span>
                 <span className="text-white">Akshay Sarapure</span>
               </h1>
               <p className="text-xl md:text-2xl mb-4 font-semibold text-blue-accent">
@@ -372,8 +407,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Current Work */}
-      <section className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-1"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">What I'm Working On</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="blue-card p-6 rounded-xl transition-all duration-300 hover:scale-103">
@@ -431,8 +467,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="projects" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-2"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Featured Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
@@ -463,8 +500,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* More Projects Section */}
-      <section id="more-projects" className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="more-projects" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-3"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">More Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {moreProjects.map((project, index) => (
@@ -497,8 +535,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Deployed Projects Section */}
-      <section id="deployed-projects" className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="deployed-projects" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-4"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Deployed Projects</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {deployedProjects.map((project, index) => (
@@ -553,8 +592,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Published Apps - Play Store */}
-      <section className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-5"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Published Apps</h2>
           <div className="max-w-4xl mx-auto">
             <div className="blue-card p-8 rounded-2xl transition-all duration-300 text-center hover:scale-103">
@@ -588,8 +628,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Blog Articles */}
-      <section id="blogs" className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="blogs" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-6"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Latest Blog Articles</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {blogs.map((blog, index) => (
@@ -613,8 +654,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Achievements */}
-      <section id="achievements" className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="achievements" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-7"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Achievements & Recognition</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
             {achievements.map((achievement, index) => (
@@ -642,8 +684,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="skills" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-8"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Technical Skills</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Object.entries(skills).map(([category, skillList], index) => (
@@ -669,8 +712,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Resume Section */}
-      <section id="resume" className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section id="resume" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-9"></div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">Resume</h2>
           <p className="text-lg text-gray-300 mb-8">
             Download my complete resume to learn more about my experience, skills, and achievements.
@@ -704,8 +748,9 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-20 bg-pitch-black scroll-reveal">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section id="contact" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-10"></div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-white">Let's Connect</h2>
           <p className="text-lg text-gray-300 mb-12">
             I'm always open to discussing new opportunities, collaborations, or just chatting about Android development!
