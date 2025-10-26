@@ -803,6 +803,18 @@ export default function PortfolioPreview() {
         </div>
       </section>
 
+      {/* AdMob Verification Info */}
+      <section className="py-12 bg-pitch-black/50 border-t border-blue-accent/20 text-center relative">
+        <div className="max-w-2xl mx-auto px-4">
+          <p className="text-sm text-gray-400">
+            app-ads.txt file configured for AdMob verification •
+            <a href="/app-ads.txt" className="text-blue-accent hover:text-white ml-1" target="_blank" rel="noreferrer">
+              View File
+            </a>
+          </p>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-8 bg-pitch-black text-white text-center border-t border-blue-accent/20"></footer>
     </div>
