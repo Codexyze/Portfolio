@@ -77,7 +77,7 @@ export default function PortfolioPreview() {
 
   const projects = [
     {
-      icon: "🎧",
+      icon: "��",
       title: "Lhythm",
       description:
         "A full-fledged offline music player with ExoPlayer integration, lyrics support, album art loading, playlist creation, and light/dark themes.",
