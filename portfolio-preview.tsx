@@ -77,7 +77,7 @@ export default function PortfolioPreview() {
 
   const projects = [
     {
-      icon: "��",
+      icon: "🎵",
       title: "Lhythm",
       description:
         "A full-fledged offline music player with ExoPlayer integration, lyrics support, album art loading, playlist creation, and light/dark themes.",
@@ -109,20 +109,20 @@ export default function PortfolioPreview() {
       link: "https://github.com/Codexyze/Guess_it",
     },
     {
-      icon: "🎬",
-      title: "Video Player App",
+      icon: "🍽️",
+      title: "BiteBuddy",
       description:
-        "Custom video player using ExoPlayer, built for local video playback with sleek UI and smooth performance.",
-      tech: ["Kotlin", "ExoPlayer", "Android"],
-      link: "https://github.com/Codexyze/Video_Player_App",
+        "A comprehensive food and nutrition tracking app with 4,500+ food database, menstrual cycle tracking, and 100% local privacy-focused storage.",
+      tech: ["Kotlin", "Jetpack Compose", "Room", "MVVM", "Hilt"],
+      link: "https://github.com/Codexyze/BiteBuddy",
     },
     {
-      icon: "😂",
-      title: "Meme App",
+      icon: "✍️",
+      title: "Snap Signature",
       description:
-        "Fetches 50 random memes from Reddit using a public API, providing endless entertainment with clean UI.",
-      tech: ["Kotlin", "Retrofit", "API Integration"],
-      link: "https://github.com/Codexyze/MemeApp",
+        "A modern drawing and signature app with 160+ color palette, adjustable brush sizes, eraser tool, and gallery integration for saving artwork.",
+      tech: ["Kotlin", "Jetpack Compose", "MVVM", "Material Design 3"],
+      link: "https://github.com/Codexyze/Snap_Signature",
     },
   ]
 
@@ -193,6 +193,22 @@ export default function PortfolioPreview() {
       tech: ["Jetpack Compose", "ExoPlayer", "Clean Architecture", "Hilt"],
       playStoreLink: "https://play.google.com/store/apps/details?id=com.nutrino.audiocutter&pcampaignid=web_share",
       githubLink: "https://github.com/Codexyze/Audio_Cutter",
+    },
+    {
+      icon: "🍽️",
+      title: "BiteBuddy",
+      description: "A comprehensive food and nutrition tracking app with privacy-first design.",
+      features: [
+        "🥗 4,500+ Food Database: Indian and Continental cuisine options",
+        "📊 Nutrition Tracking: Calories, protein, vitamins, and minerals",
+        "🩸 Menstrual Cycle Tracking: Pain levels, flow intensity, and symptoms",
+        "🔒 100% Local Storage: All data remains on your device",
+        "🎬 Optional Ad Support: Watch ads voluntarily to support development",
+        "⚡ Offline Functionality: Works without internet connection",
+      ],
+      tech: ["Kotlin", "Jetpack Compose", "Room", "MVVM", "Hilt"],
+      playStoreLink: "https://play.google.com/store/apps/details?id=com.scrymz.bitebuddy",
+      githubLink: "https://github.com/Codexyze/BiteBuddy",
     },
   ]
 
@@ -800,18 +816,6 @@ export default function PortfolioPreview() {
               <span className="font-medium">Instagram</span>
             </a>
           </div>
-        </div>
-      </section>
-
-      {/* AdMob Verification Info */}
-      <section className="py-12 bg-pitch-black/50 border-t border-blue-accent/20 text-center relative">
-        <div className="max-w-2xl mx-auto px-4">
-          <p className="text-sm text-gray-400">
-            app-ads.txt file configured for AdMob verification •
-            <a href="/app-ads.txt" className="text-blue-accent hover:text-white ml-1" target="_blank" rel="noreferrer">
-              View File
-            </a>
-          </p>
         </div>
       </section>
 
