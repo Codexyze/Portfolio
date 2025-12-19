@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, X, ExternalLink, Github, Mail, Linkedin, Instagram } from "lucide-react"
+import { Github, Linkedin, Mail, ExternalLink, Menu, X, Calendar, Briefcase } from "lucide-react"
 import { BackgroundPaths } from "@/components/ui/background-paths"
 
-export default function PortfolioPreview() {
+export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [typingComplete, setTypingComplete] = useState(true) // Default to true for SSR
   const [hasTyped, setHasTyped] = useState(true) // Default to true for SSR
@@ -314,9 +314,29 @@ export default function PortfolioPreview() {
     ],
   }
 
+  const experience = [
+    {
+      role: "Android Developer Intern",
+      company: "Scrymz Software Private Limited",
+      type: "Internship",
+      duration: "Sept 2025 – Dec 2025",
+      location: "Remote",
+      responsibilities: [
+        "Architected complete application using Clean Architecture with clear separation across data, domain, and presentation layers",
+        "Implemented 120+ API routes using Ktor for type-safe client-server communication",
+        "Integrated performance monitoring and profiling tools to optimize app responsiveness",
+        "Developed secure payment gateway system with real-time transaction handling and status tracking",
+      ],
+      technologies: ["Kotlin", "Ktor", "Clean Architecture", "Payment Integration", "Performance Optimization"],
+    },
+  ]
+
   return (
-    <div className="min-h-screen bg-pitch-black text-white">
-      {/* Navigation */}
+    <div className="min-h-screen bg-pitch-black text-white relative overflow-x-hidden">
+      {/* Animated Background */}
+      <div className="animated-bg"></div>
+
+      {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 bg-pitch-black/90 backdrop-blur-xl border-b border-blue-accent/20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -329,6 +349,7 @@ export default function PortfolioPreview() {
                 "Deployed Projects",
                 "Blogs",
                 "Achievements",
+                "Experience",
                 "Skills",
                 "Resume",
                 "Contact",
@@ -344,21 +365,15 @@ export default function PortfolioPreview() {
               ))}
             </div>
 
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 hover:scale-110 transition-transform duration-300 text-blue-accent"
-              >
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
+            {/* Mobile Menu Button */}
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-white">
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-        </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-pitch-black/95 backdrop-blur-xl border-t border-blue-accent/20">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <div className="md:hidden py-4 space-y-2">
               {[
                 "Home",
                 "Projects",
@@ -366,6 +381,7 @@ export default function PortfolioPreview() {
                 "Deployed Projects",
                 "Blogs",
                 "Achievements",
+                "Experience",
                 "Skills",
                 "Resume",
                 "Contact",
@@ -379,8 +395,8 @@ export default function PortfolioPreview() {
                 </button>
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </nav>
 
       {/* Hero Section with BackgroundPaths and Glowing Animation */}
@@ -467,7 +483,7 @@ export default function PortfolioPreview() {
               <a
                 href="https://github.com/Codexyze/practice_Set_Code"
                 target="_blank"
-                className="font-medium text-blue-accent hover:text-white transition-colors duration-300 hover:scale-105 inline-block"
+                className="blue-button-small inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 text-sm font-medium"
                 rel="noreferrer"
               >
                 View Repository
@@ -616,43 +632,7 @@ export default function PortfolioPreview() {
         </div>
       </section>
 
-      {/* Published Apps - Play Store */}
-      <section className="py-20 bg-pitch-black scroll-reveal relative">
-        <div className="section-bg-effect section-bg-5"></div>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Published Apps</h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="blue-card p-8 rounded-2xl transition-all duration-300 text-center hover:scale-103">
-              <div className="text-6xl mb-6">📱</div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                <span className="text-blue-accent">Live on Google Play Store</span>
-              </h3>
-              <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                Discover my published Android applications available for millions of users worldwide. Each app showcases
-                modern Android development practices, clean architecture, and exceptional user experience.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                <div className="skill-chip px-4 py-2 rounded-full font-medium">✨ Modern UI/UX</div>
-                <div className="skill-chip px-4 py-2 rounded-full font-medium">🏗️ Clean Architecture</div>
-                <div className="skill-chip px-4 py-2 rounded-full font-medium">🚀 High Performance</div>
-              </div>
-              <a
-                href="https://play.google.com/store/apps/dev?id=9069883027072615264"
-                target="_blank"
-                rel="noreferrer"
-                className="blue-button inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300"
-              >
-                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-                </svg>
-                View My Apps on Play Store
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Articles */}
+      {/* Blogs Section */}
       <section id="blogs" className="py-20 bg-pitch-black scroll-reveal relative">
         <div className="section-bg-effect section-bg-6"></div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -678,7 +658,7 @@ export default function PortfolioPreview() {
         </div>
       </section>
 
-      {/* Achievements */}
+      {/* Achievements Section */}
       <section id="achievements" className="py-20 bg-pitch-black scroll-reveal relative">
         <div className="section-bg-effect section-bg-7"></div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -702,6 +682,60 @@ export default function PortfolioPreview() {
                     {achievement.title === "IEEE Fellowship" ? "View Code" : "View Certificate"}
                   </a>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20 bg-pitch-black scroll-reveal relative">
+        <div className="section-bg-effect section-bg-7"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Professional Experience</h2>
+
+          <div className="space-y-8">
+            {experience.map((exp, index) => (
+              <div key={index} className="blue-card p-8 rounded-xl transition-all duration-300 hover:scale-102">
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-bold text-white mb-2">{exp.role}</h3>
+                    <div className="flex items-center gap-2 text-blue-accent mb-2">
+                      <Briefcase className="w-5 h-5" />
+                      <span className="text-lg font-semibold">{exp.company}</span>
+                      <span className="px-2 py-1 bg-blue-accent/10 border border-blue-accent/30 rounded text-xs">
+                        {exp.type}
+                      </span>
+                      <span className="px-2 py-1 bg-blue-accent/20 border border-blue-accent/40 rounded text-xs font-medium">
+                        {exp.location}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400 mt-2 md:mt-0">
+                    <Calendar className="w-4 h-4" />
+                    <span className="text-sm">{exp.duration}</span>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <h4 className="text-sm font-semibold text-blue-accent mb-3">Key Responsibilities:</h4>
+                  <ul className="space-y-2">
+                    {exp.responsibilities.map((responsibility, idx) => (
+                      <li key={idx} className="text-gray-300 text-sm flex items-start gap-2">
+                        <span className="text-blue-accent mt-1">•</span>
+                        <span>{responsibility}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {exp.technologies.map((tech, techIdx) => (
+                    <span key={techIdx} className="skill-chip px-3 py-1 rounded-full text-xs font-medium">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -752,7 +786,7 @@ export default function PortfolioPreview() {
                 Complete overview of my technical skills, projects, and professional experience
               </p>
               <a
-                href="https://drive.google.com/file/d/12J-hdkjOv9QgcUla4i0jg-43JtrreGv9/view?usp=sharing"
+                href="https://drive.google.com/file/d/1M05TZh-iKhNDq3cyaD1x8r1qCYh4hxF9/view?usp=drivesdk"
                 target="_blank"
                 rel="noreferrer"
                 className="blue-button inline-flex items-center gap-3 px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300"
@@ -812,7 +846,14 @@ export default function PortfolioPreview() {
               className="blue-card flex items-center justify-center gap-3 p-4 rounded-xl transition-all duration-300 hover:scale-103"
               rel="noreferrer"
             >
-              <Instagram className="w-5 h-5" />
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25M19.5 4.5H5.25"
+                />
+              </svg>
               <span className="font-medium">Instagram</span>
             </a>
           </div>
@@ -820,7 +861,7 @@ export default function PortfolioPreview() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-pitch-black text-white text-center border-t border-blue-accent/20"></footer>
+      <footer className="bg-pitch-black border-t border-blue-accent/20 py-8">{/* Footer content here */}</footer>
     </div>
   )
 }
