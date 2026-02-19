@@ -786,7 +786,7 @@ export default function Portfolio() {
                 Complete overview of my technical skills, projects, and professional experience
               </p>
               <a
-                href="https://drive.google.com/file/d/1M05TZh-iKhNDq3cyaD1x8r1qCYh4hxF9/view?usp=drivesdk"
+                href="https://drive.google.com/file/d/12TfOBdQNzjc0x3UpT5Ic2p91-IAQbFYM/view?usp=drive_link"
                 target="_blank"
                 rel="noreferrer"
                 className="blue-button inline-flex items-center gap-3 px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300"
