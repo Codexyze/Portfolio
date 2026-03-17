@@ -430,11 +430,10 @@ export default function Portfolio() {
                 <span className="text-white">Akshay Sarapure</span>
               </h1>
               <p className="text-xl md:text-2xl mb-4 font-semibold text-blue-accent">
-                ⚡ Android Developer | Clean Architect | Kotlin & Jetpack Compose Enthusiast | Open for Freelancing
-                Projects
+                Android Developer building production-grade mobile applications
               </p>
               <p className="text-lg md:text-xl mb-8 text-gray-300">
-                I build modern Android apps with clean architecture and seamless UX.
+                Specialized in Kotlin, Jetpack Compose, MVVM, Clean Architecture, and scalable app architecture.
               </p>
             </div>
             <button
