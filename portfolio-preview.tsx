@@ -776,19 +776,17 @@ export default function Portfolio() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">Resume</h2>
           <p className="text-lg text-gray-300 mb-8">
-            Download my complete resume to learn more about my experience, skills, and achievements.
+            Request my resume directly. I'll be happy to share my detailed professional background and experience.
           </p>
           <div className="max-w-md mx-auto">
             <div className="blue-card p-8 rounded-2xl transition-all duration-300 hover:scale-103">
               <div className="text-6xl mb-6">📄</div>
               <h3 className="text-xl font-semibold mb-4 text-white">Professional Resume</h3>
               <p className="text-gray-300 mb-6">
-                Complete overview of my technical skills, projects, and professional experience
+                Get a complete overview of my technical skills, projects, and professional experience
               </p>
               <a
-                href="https://drive.google.com/file/d/12TfOBdQNzjc0x3UpT5Ic2p91-IAQbFYM/view?usp=drive_link"
-                target="_blank"
-                rel="noreferrer"
+                href="mailto:akshaysarapure@gmail.com?subject=Resume Request&body=Hi Akshay, I would like to request your resume. Thank you!"
                 className="blue-button inline-flex items-center gap-3 px-6 py-3 rounded-full text-lg font-semibold transition-all duration-300"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -796,10 +794,10 @@ export default function Portfolio() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                Download Resume
+                Request Resume
               </a>
             </div>
           </div>
