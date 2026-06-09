@@ -415,33 +415,92 @@ export default function Portfolio() {
         </div>
 
         <div className="relative z-20 pt-16 min-h-screen flex items-center justify-center">
-          <div className="text-center px-4 max-w-4xl mx-auto">
-            <div className="mb-8">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                <span className="text-white/70">
-                  {hasTyped ? (
-                    "Hi 👋, I'm "
-                  ) : (
-                    <span className={`inline-block ${typingComplete ? "typing-complete" : "typing-animation"}`}>
-                      Hi 👋, I'm
-                    </span>
-                  )}
-                </span>
-                <span className="text-white">Akshay Sarapure</span>
-              </h1>
-              <p className="text-xl md:text-2xl mb-4 font-semibold text-blue-accent">
-                Android Developer building production-grade mobile applications
-              </p>
-              <p className="text-lg md:text-xl mb-8 text-gray-300">
-                Specialized in Kotlin, Jetpack Compose, MVVM, Clean Architecture, and scalable app architecture.
-              </p>
+          <div className="px-4 max-w-7xl mx-auto w-full">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Left Side - Text Content */}
+              <div className="text-center md:text-left">
+                <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                  <span className="text-white/70">
+                    {hasTyped ? (
+                      "Hi 👋, I'm "
+                    ) : (
+                      <span className={`inline-block ${typingComplete ? "typing-complete" : "typing-animation"}`}>
+                        Hi 👋, I'm
+                      </span>
+                    )}
+                  </span>
+                  <span className="text-white">Akshay Sarapure</span>
+                </h1>
+                <p className="text-xl md:text-2xl mb-4 font-semibold text-blue-accent">
+                  Android Developer building production-grade mobile applications
+                </p>
+                <p className="text-lg md:text-xl mb-8 text-gray-300">
+                  Specialized in Kotlin, Jetpack Compose, MVVM, Clean Architecture, and scalable app architecture.
+                </p>
+                <button
+                  className="blue-button px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300"
+                  onClick={() => scrollToSection("projects")}
+                >
+                  Explore My Work
+                </button>
+              </div>
+
+              {/* Right Side - Mobile Phone Design */}
+              <div className="hidden md:flex justify-center">
+                <div className="relative w-72 h-96">
+                  {/* Phone Frame */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl shadow-2xl border-8 border-gray-700 overflow-hidden">
+                    {/* Phone Screen */}
+                    <div className="absolute inset-0 bg-pitch-black m-4 rounded-2xl overflow-hidden">
+                      {/* Status Bar */}
+                      <div className="bg-gray-900 px-6 py-2 text-xs text-gray-400 flex justify-between items-center">
+                        <span>9:41</span>
+                        <span>📡</span>
+                      </div>
+
+                      {/* Screen Content */}
+                      <div className="p-6 h-full overflow-y-auto scrollbar-hide">
+                        <div className="text-center mb-6">
+                          <p className="text-blue-accent font-bold text-lg">Skills</p>
+                        </div>
+
+                        {/* Skills Grid */}
+                        <div className="grid grid-cols-2 gap-3">
+                          {[
+                            "Kotlin",
+                            "Jetpack Compose",
+                            "MVVM",
+                            "Clean Architecture",
+                            "Multi-Modular",
+                            "KMP",
+                            "Hilt",
+                            "Firebase",
+                            "ExoPlayer",
+                            "Room DB",
+                            "Coroutines",
+                            "Flow"
+                          ].map((skill, idx) => (
+                            <div
+                              key={idx}
+                              className="bg-gray-800 border border-blue-accent/30 rounded-lg px-3 py-2 text-center animate-pulse"
+                              style={{ animationDelay: `${idx * 0.1}s` }}
+                            >
+                              <p className="text-xs text-blue-accent font-semibold">{skill}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phone Notch */}
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-40 h-7 bg-gray-900 rounded-b-3xl border-8 border-gray-700 z-10"></div>
+
+                  {/* Glow Effect */}
+                  <div className="absolute -inset-4 bg-gradient-to-r from-blue-accent/20 to-transparent rounded-3xl blur-2xl opacity-50"></div>
+                </div>
+              </div>
             </div>
-            <button
-              className="blue-button px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300"
-              onClick={() => scrollToSection("projects")}
-            >
-              Explore My Work
-            </button>
           </div>
         </div>
       </section>
