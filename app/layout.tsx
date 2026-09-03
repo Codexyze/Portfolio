@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   title: "Akshay Sarapure - Android Developer Portfolio",
   description: "Passionate Android Developer specializing in Jetpack Compose, Clean Architecture, and Modern Android Development",
   generator: "v0.app",
+  icons: {
+    icon: "/nutrino-logo.png",
+    shortcut: "/nutrino-logo.png",
+    apple: "/nutrino-logo.png",
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
