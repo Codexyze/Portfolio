@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   description: "Passionate Android Developer specializing in Jetpack Compose, Clean Architecture, and Modern Android Development",
   generator: "v0.app",
   icons: {
-    icon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-KuLhI6UQznZwHXLevM7QaQK81u7oHx.png",
-    shortcut: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-KuLhI6UQznZwHXLevM7QaQK81u7oHx.png",
-    apple: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-KuLhI6UQznZwHXLevM7QaQK81u7oHx.png",
+    icon: "/nutrino-logo.png",
+    shortcut: "/nutrino-logo.png",
+    apple: "/nutrino-logo.png",
   },
 }
 
